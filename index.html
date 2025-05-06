@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vibrate Example</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibration Example</title>
 </head>
 <body>
-<h3>Vibrate Button Example</h3>
-<button id="vibrate">Vibrate for 1 second</button>
-<script>
-document.getElementById('vibrate').addEventListener('click', function() {
-  if (navigator.vibrate) {
-    // Vibrate for 1000 milliseconds (1 second)
-    navigator.vibrate(1000);
-  } else {
-    alert('Vibration API not supported');
-  }
-});
-</script>
+    <h1>Vibration Example</h1>
+    <button id="vibrateButton">Vibrate</button>
+
+    <script type="text/javascript">
+        document.getElementById('vibrateButton').addEventListener('click', function() {
+            // Check if the vibration API is available
+            if (navigator.vibrate) {
+                // Trigger vibration for 1 second (1000 milliseconds)
+                navigator.vibrate(1000);
+                alert('Vibration started!');
+            } else {
+                alert('Vibration API is not supported on this device.');
+            }
+        });
+    </script>
 </body>
 </html>
