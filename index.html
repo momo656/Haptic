@@ -27,16 +27,26 @@
 </head>
 <body>
 
-    <h1>اضغط على الزر للحصول على رد فعل اهتزازي</h1>
-    <button onclick="triggerHapticFeedback()">اضغط هنا</button>
+    <h1>اضغط على الزر للحصول على رد فعل اهتزازي متقدم</h1>
+    <button onclick="triggerAdvancedHapticFeedback()">اضغط هنا</button>
 
     <script>
-        function triggerHapticFeedback() {
-            // تحقق من دعم الاهتزاز في الجهاز
-            if (navigator.vibrate) {
-                // اهتزاز قصير (500 ميلي ثانية)
-                navigator.vibrate([200, 100, 200]);  // اهتزاز متقطع: 200ms اهتزاز، 100ms توقف، 200ms اهتزاز آخر
-                console.log("تم تشغيل الاهتزاز");
+        function triggerAdvancedHapticFeedback() {
+            // تحقق من دعم Haptic API في الجهاز
+            if ('vibrate' in navigator || 'Haptic' in window) {
+                if (window.Haptic && window.Haptic.vibrate) {
+                    // اهتزاز متقدم باستخدام Haptic API
+                    window.Haptic.vibrate({
+                        type: "selection",   // نوع الاهتزاز: "selection", "notification", أو "alert"
+                        duration: 300,       // مدة الاهتزاز (بالملي ثانية)
+                        strength: 0.7        // قوة الاهتزاز (من 0 إلى 1)
+                    });
+                    console.log("تم تشغيل رد الفعل الاهتزازي المتقدم");
+                } else {
+                    // إذا لم يكن Haptic API مدعومًا، استخدم طريقة الاهتزاز التقليدية
+                    navigator.vibrate(300);  // اهتزاز بسيط (300 ملي ثانية)
+                    console.log("تم تشغيل الاهتزاز البسيط");
+                }
             } else {
                 alert("جهازك لا يدعم رد الفعل الاهتزازي.");
                 console.log("المتصفح أو الجهاز لا يدعمان الاهتزاز.");
