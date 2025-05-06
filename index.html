@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haptic Feedback باستخدام مكتبة JavaScript</title>
+    <title>اختبار الاهتزاز</title>
 </head>
 <body>
     <button onclick="triggerVibration()">اضغط هنا لاختبار الاهتزاز</button>
 
-    <script src="https://cdn.jsdelivr.net/npm/robust-vibration-api"></script>
     <script>
         function triggerVibration() {
-            if (navigator.vibrate) {
-                // إذا كان الاهتزاز مدعومًا، استخدمه
-                robustVibration.vibrate([200, 100, 200]); // اهتزاز متقطع
+            if ("vibrate" in navigator) {
+                // إذا كان الاهتزاز مدعومًا
+                navigator.vibrate([200, 100, 200]); // اهتزاز متقطع
                 console.log("تم تشغيل الاهتزاز");
             } else {
                 alert("جهازك لا يدعم الاهتزاز.");
