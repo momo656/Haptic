@@ -3,56 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haptic Feedback</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            direction: rtl;
-            text-align: center;
-            padding: 20px;
-        }
-        button {
-            padding: 15px 25px;
-            font-size: 1.2em;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <title>Haptic Feedback باستخدام مكتبة JavaScript</title>
 </head>
 <body>
+    <button onclick="triggerVibration()">اضغط هنا لاختبار الاهتزاز</button>
 
-    <h1>اضغط على الزر للحصول على رد فعل اهتزازي متقدم</h1>
-    <button onclick="triggerAdvancedHapticFeedback()">اضغط هنا</button>
-
+    <script src="https://cdn.jsdelivr.net/npm/robust-vibration-api"></script>
     <script>
-        function triggerAdvancedHapticFeedback() {
-            // تحقق من دعم Haptic API في الجهاز
-            if ('vibrate' in navigator || 'Haptic' in window) {
-                if (window.Haptic && window.Haptic.vibrate) {
-                    // اهتزاز متقدم باستخدام Haptic API
-                    window.Haptic.vibrate({
-                        type: "selection",   // نوع الاهتزاز: "selection", "notification", أو "alert"
-                        duration: 300,       // مدة الاهتزاز (بالملي ثانية)
-                        strength: 0.7        // قوة الاهتزاز (من 0 إلى 1)
-                    });
-                    console.log("تم تشغيل رد الفعل الاهتزازي المتقدم");
-                } else {
-                    // إذا لم يكن Haptic API مدعومًا، استخدم طريقة الاهتزاز التقليدية
-                    navigator.vibrate(300);  // اهتزاز بسيط (300 ملي ثانية)
-                    console.log("تم تشغيل الاهتزاز البسيط");
-                }
+        function triggerVibration() {
+            if (navigator.vibrate) {
+                // إذا كان الاهتزاز مدعومًا، استخدمه
+                robustVibration.vibrate([200, 100, 200]); // اهتزاز متقطع
+                console.log("تم تشغيل الاهتزاز");
             } else {
-                alert("جهازك لا يدعم رد الفعل الاهتزازي.");
-                console.log("المتصفح أو الجهاز لا يدعمان الاهتزاز.");
+                alert("جهازك لا يدعم الاهتزاز.");
             }
         }
     </script>
-
 </body>
 </html>
