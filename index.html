@@ -11,13 +11,9 @@
     <script>
         function triggerVibration() {
             if (navigator.vibrate) {
-                // محاولة استخدام الاهتزاز بشكل مباشر
+                // إذا كان الاهتزاز مدعومًا
                 navigator.vibrate([200, 100, 200]); // اهتزاز متقطع
-                console.log("تم تشغيل الاهتزاز باستخدام navigator.vibrate");
-            } else if (window.robustVibration && robustVibration.vibrate) {
-                // محاولة استخدام مكتبة robust-vibration-api إذا كانت متاحة
-                robustVibration.vibrate([200, 100, 200]);
-                console.log("تم تشغيل الاهتزاز باستخدام مكتبة robust-vibration-api");
+                console.log("تم تشغيل الاهتزاز");
             } else {
                 alert("جهازك لا يدعم الاهتزاز.");
             }
