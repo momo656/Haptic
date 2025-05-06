@@ -10,8 +10,8 @@
 
     <script>
         function triggerVibration() {
-            if (navigator.vibrate) {
-                // إذا كان الاهتزاز مدعومًا
+            if ("vibrate" in navigator) {
+                // محاولة تشغيل الاهتزاز بشكل مباشر
                 navigator.vibrate([200, 100, 200]); // اهتزاز متقطع
                 console.log("تم تشغيل الاهتزاز");
             } else {
