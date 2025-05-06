@@ -1,1 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haptic Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: center;
+            padding: 20px;
+        }
+        button {
+            padding: 15px 25px;
+            font-size: 1.2em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>اضغط على الزر للحصول على رد فعل اهتزازي</h1>
+    <button onclick="triggerHapticFeedback()">اضغط هنا</button>
+
+    <script>
+        function triggerHapticFeedback() {
+            // تحقق من دعم الاهتزاز في الجهاز
+            if (navigator.vibrate) {
+                // اهتزاز قصير (500 ميلي ثانية)
+                navigator.vibrate(500);  
+            } else {
+                alert("جهازك لا يدعم رد الفعل الاهتزازي.");
+            }
+        }
+    </script>
+
+</body>
+</html>
 
