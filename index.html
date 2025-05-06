@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار الاهتزاز</title>
+    <title>اختبار الاهتزاز أو Haptic Feedback</title>
 </head>
 <body>
     <button onclick="triggerVibration()">اضغط هنا لاختبار الاهتزاز</button>
@@ -11,11 +11,18 @@
     <script>
         function triggerVibration() {
             if ("vibrate" in navigator) {
-                // محاولة تشغيل الاهتزاز بشكل مباشر
+                // استخدام navigator.vibrate إذا كان مدعومًا
                 navigator.vibrate([200, 100, 200]); // اهتزاز متقطع
-                console.log("تم تشغيل الاهتزاز");
+                console.log("تم تشغيل الاهتزاز عبر navigator.vibrate");
             } else {
-                alert("جهازك لا يدعم الاهتزاز.");
+                // إذا لم يكن اهتزاز متاح، جرب Haptic Feedback إذا كان مدعومًا
+                if (window.HapticFeedback) {
+                    // استخدام HapticFeedback API إذا كانت متوفرة
+                    window.HapticFeedback.vibrate(200);
+                    console.log("تم تشغيل Haptic Feedback");
+                } else {
+                    alert("جهازك لا يدعم الاهتزاز أو Haptic Feedback.");
+                }
             }
         }
     </script>
