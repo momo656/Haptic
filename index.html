@@ -1,30 +1,83 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار الاهتزاز أو Haptic Feedback</title>
+    <title>In-App Message with Vibration</title>
+    <style>
+        /* تصميم بسيط للرسالة */
+        .inapp-message {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+        }
+        .inapp-message button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .inapp-message button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <button onclick="triggerVibration()">اضغط هنا لاختبار الاهتزاز</button>
+
+    <div class="inapp-message">
+        <h2>اهتزاز الرسالة داخل التطبيق!</h2>
+        <p>تم عرض هذه الرسالة مع تأثير الاهتزاز.</p>
+        <button onclick="closeMessage()">إغلاق</button>
+    </div>
 
     <script>
-        function triggerVibration() {
-            if ("vibrate" in navigator) {
-                // استخدام navigator.vibrate إذا كان مدعومًا
-                navigator.vibrate([200, 100, 200]); // اهتزاز متقطع
-                console.log("تم تشغيل الاهتزاز عبر navigator.vibrate");
-            } else {
-                // إذا لم يكن اهتزاز متاح، جرب Haptic Feedback إذا كان مدعومًا
-                if (window.HapticFeedback) {
-                    // استخدام HapticFeedback API إذا كانت متوفرة
-                    window.HapticFeedback.vibrate(200);
-                    console.log("تم تشغيل Haptic Feedback");
-                } else {
-                    alert("جهازك لا يدعم الاهتزاز أو Haptic Feedback.");
+        // تأكد من دعم الاهتزاز
+        function vibrateMessage() {
+            if (navigator.vibrate) {
+                try {
+                    // اهتزاز لمدة 200 ملي ثانية، ثم توقف 100 ملي ثانية، ثم اهتزاز آخر 200 ملي ثانية
+                    navigator.vibrate([200, 100, 200]);
+                    console.log("Vibration executed successfully");
+                } catch (e) {
+                    console.error("Error executing vibration: " + e);
                 }
+            } else {
+                console.log("Vibration is not supported on this device");
             }
         }
+
+        // وظيفة لإغلاق الرسالة
+        function closeMessage() {
+            const message = document.querySelector('.inapp-message');
+            message.style.display = 'none';
+        }
+
+        // تفعيل الاهتزاز عند عرض الرسالة
+        document.addEventListener('DOMContentLoaded', function () {
+            // في حالة كانت الرسالة مدعومة داخل MoEngage SDK
+            if (window.MoEngage) {
+                // استخدم MoEngage API هنا إذا كان متاحًا
+                MoEngage.showInAppMessage({
+                    message: "عرض الرسالة مع الاهتزاز",
+                    onDisplay: function() {
+                        vibrateMessage(); // اهتزاز الرسالة عند عرضها
+                    }
+                });
+            } else {
+                vibrateMessage(); // تفعيل الاهتزاز مباشرة إذا لم يكن هناك SDK
+            }
+        });
     </script>
+
 </body>
 </html>
